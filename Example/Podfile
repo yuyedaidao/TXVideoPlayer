@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '9.0'
+
+target 'TXVideoPlayer_Example' do
+  pod 'TXVideoPlayer', :path => '../'
+
+  target 'TXVideoPlayer_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
