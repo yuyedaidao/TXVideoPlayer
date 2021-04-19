@@ -1,0 +1,51 @@
+PODS:
+  - AFNetworking (4.0.1):
+    - AFNetworking/NSURLSession (= 4.0.1)
+    - AFNetworking/Reachability (= 4.0.1)
+    - AFNetworking/Security (= 4.0.1)
+    - AFNetworking/Serialization (= 4.0.1)
+    - AFNetworking/UIKit (= 4.0.1)
+  - AFNetworking/NSURLSession (4.0.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (4.0.1)
+  - AFNetworking/Security (4.0.1)
+  - AFNetworking/Serialization (4.0.1)
+  - AFNetworking/UIKit (4.0.1):
+    - AFNetworking/NSURLSession
+  - Masonry (1.1.0)
+  - SDWebImage (5.11.0):
+    - SDWebImage/Core (= 5.11.0)
+  - SDWebImage/Core (5.11.0)
+  - TXLiteAVSDK_Player (8.5.10022)
+  - TXVideoPlayer (0.1.0):
+    - AFNetworking
+    - Masonry
+    - SDWebImage
+    - TXLiteAVSDK_Player
+
+DEPENDENCIES:
+  - TXVideoPlayer (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - AFNetworking
+    - Masonry
+    - SDWebImage
+    - TXLiteAVSDK_Player
+
+EXTERNAL SOURCES:
+  TXVideoPlayer:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  SDWebImage: 7acbb57630ac7db4a495547fb73916ff3e432f6b
+  TXLiteAVSDK_Player: 60cfcf6732966ef467f17dba63958cddb35dd6d2
+  TXVideoPlayer: 90820844c5ffdafc4ac735685acf3060e990762b
+
+PODFILE CHECKSUM: 09ff6a4c57847a22b0fc01bf2248c12d48be0b6b
+
+COCOAPODS: 1.10.0
