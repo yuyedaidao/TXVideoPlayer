@@ -30,7 +30,7 @@ Pod::Spec.new do |s|
   s.static_framework = true
   s.requires_arc = true
   s.source_files = 'TXVideoPlayer/Classes/**/*'
-  
+  s.pod_target_xcconfig = { 'VALID_ARCHS' => 'x86_64 armv7 arm64' }
   s.resource_bundles = {
      'TXVideoPlayer' => ['TXVideoPlayer/Assets/**/*']
   }
