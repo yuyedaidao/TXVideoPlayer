@@ -70,6 +70,8 @@ typedef NS_ENUM(NSInteger, SuperPlayerLayoutStyle) {
 @property (nonatomic, strong) UIButton *repeatBtn;
 /// 全屏退出
 @property (nonatomic, strong) UIButton *repeatBackBtn;
+/// 是否允许显示重播按钮
+@property (nonatomic, assign) BOOL allowShowRepeatView;
 /// 是否自动播放（在playWithModel前设置)
 @property BOOL autoPlay;
 /// 视频总时长
@@ -121,5 +123,9 @@ typedef NS_ENUM(NSInteger, SuperPlayerLayoutStyle) {
  *  @param dragedSeconds 视频跳转的秒数
  */
 - (void)seekToTime:(NSInteger)dragedSeconds;
+
+/// 是否允许fastView显示
+@property (nonatomic, assign) BOOL allowShowFastView;
+
 
 @end

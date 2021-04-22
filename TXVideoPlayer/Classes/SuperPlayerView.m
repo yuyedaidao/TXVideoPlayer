@@ -129,6 +129,15 @@ static UISlider * _volumeSlider;
     [self.volumeView removeFromSuperview];
 }
 
+- (void)setAllowShowFastView:(BOOL)allowShowFastView {
+    if (_allowShowFastView != allowShowFastView) {
+        _allowShowFastView = allowShowFastView;
+        if (!allowShowFastView) {
+            _fastView.hidden = YES;
+        }
+    }
+}
+
 #pragma mark - 观察者、通知
 
 /**
@@ -787,11 +796,18 @@ static UISlider * _volumeSlider;
         [SuperPlayerWindowShared hide];
         [self resetPlayer];
     }
-    [self.controlView fadeOut:0.2];
+    if (self.allowShowRepeatView) {
+        [self.controlView fadeOut:0.2];
+    }
     [self fastViewUnavaliable];
     [self.netWatcher stopWatch];
-    self.repeatBtn.hidden = NO;
-    self.repeatBackBtn.hidden = NO;
+    if (self.allowShowRepeatView) {
+        self.repeatBtn.hidden = NO;
+        self.repeatBackBtn.hidden = NO;
+    } else {
+        [self.controlView fadeShow];
+    }
+    
     if ([self.delegate respondsToSelector:@selector(superPlayerDidEnd:)]) {
         [self.delegate superPlayerDidEnd:self];
     }
@@ -1087,7 +1103,9 @@ static UISlider * _volumeSlider;
     if (self.controlView.isShowSecondView)
         return;
     [self.fastView showImg:image withProgress:draggedValue];
-    [self.fastView fadeShow];
+    if (self.allowShowFastView) {
+        [self.fastView fadeShow];
+    }
 }
 
 - (void)fastViewProgressAvaliable:(NSInteger)draggedTime
@@ -1126,7 +1144,9 @@ static UISlider * _volumeSlider;
         }
         [self.fastView showText:timeStr withText:sliderValue];
     }
-    [self.fastView fadeShow];
+    if (self.allowShowFastView) {
+        [self.fastView fadeShow];
+    }
 }
 
 - (void)fastViewUnavaliable
@@ -1385,8 +1405,10 @@ static UISlider * _volumeSlider;
             [self.fastView.snapshotView setUserInteractionEnabled:YES];
             [self.fastView.snapshotView addGestureRecognizer:singleTap];
         }
-        [self.fastView fadeShow];
-        [self.fastView fadeOut:2];
+        if (self.allowShowFastView) {
+            [self.fastView fadeShow];
+            [self.fastView fadeOut:2];
+        }
         UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil);
     };
     
