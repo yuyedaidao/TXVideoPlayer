@@ -805,6 +805,8 @@ static UISlider * _volumeSlider;
         self.repeatBtn.hidden = NO;
         self.repeatBackBtn.hidden = NO;
     } else {
+        [self.controlView setPlayState:NO];
+        [self.controlView setProgressTime:0 totalTime:0 progressValue:0 playableValue:0];
         [self.controlView fadeShow];
     }
     
