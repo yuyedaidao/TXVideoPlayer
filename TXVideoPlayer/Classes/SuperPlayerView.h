@@ -130,5 +130,6 @@ typedef NS_ENUM(NSInteger, SuperPlayerLayoutStyle) {
 /// 是否允许fastView显示
 @property (nonatomic, assign) BOOL allowShowFastView;
 
-
+/// 强行暴露此方法，方便自定义调节音量的方式
+- (void)verticalMoved:(CGFloat)value;
 @end
