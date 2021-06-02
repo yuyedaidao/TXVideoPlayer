@@ -132,4 +132,8 @@ typedef NS_ENUM(NSInteger, SuperPlayerLayoutStyle) {
 
 /// 强行暴露此方法，方便自定义调节音量的方式
 - (void)verticalMoved:(CGFloat)value;
+
+/// 允许自动监测屏幕旋转
+@property (assign, nonatomic) BOOL allowAutoObserveOrientationChange;
+
 @end

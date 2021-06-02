@@ -116,6 +116,7 @@ static UISlider * _volumeSlider;
     [self createGesture];
     
     self.autoPlay = YES;
+    self.allowAutoObserveOrientationChange = YES;
 }
 
 - (void)dealloc {
@@ -849,6 +850,9 @@ static UISlider * _volumeSlider;
 
 // 状态条变化通知（在前台播放才去处理）
 - (void)onStatusBarOrientationChange {
+    if (!self.allowAutoObserveOrientationChange) {
+        return;
+    }
     [self onDeviceOrientationChange];
     return;
     if (!self.didEnterBackground) {
@@ -881,6 +885,9 @@ static UISlider * _volumeSlider;
  *  屏幕方向发生变化会调用这里
  */
 - (void)onDeviceOrientationChange {
+    if (!self.allowAutoObserveOrientationChange) {
+        return;
+    }
     if (!self.isLoaded) { return; }
     if (self.isLockScreen) { return; }
     if (self.didEnterBackground) { return; };
