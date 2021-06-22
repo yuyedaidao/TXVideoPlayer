@@ -1536,11 +1536,12 @@ static UISlider * _volumeSlider;
             }
             self.controlView.pointArray = self.keyFrameDescList;
             
-            // 不使用vodPlayer.autoPlay的原因是暂停的时候会黑屏，影响体验
-            if (!self.autoPlay) {
-                self.autoPlay = YES; // 下次用户设置自动播放失效
-                [self pause];
-            }
+            // 我偏偏要注释掉这该死的代码看看什么效果
+//            // 不使用vodPlayer.autoPlay的原因是暂停的时候会黑屏，影响体验
+//            if (!self.autoPlay) {
+//                self.autoPlay = YES; // 下次用户设置自动播放失效
+//                [self pause];
+//            }
             
             if (self.originalDuration > 0) {
                 // 当前是试看
