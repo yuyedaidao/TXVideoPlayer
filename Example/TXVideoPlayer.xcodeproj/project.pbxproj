@@ -38,7 +38,7 @@
 
 /* Begin PBXFileReference section */
 		03C3E1111591A17E924B0BAF /* Pods-TXVideoPlayer_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TXVideoPlayer_Example.release.xcconfig"; path = "Target Support Files/Pods-TXVideoPlayer_Example/Pods-TXVideoPlayer_Example.release.xcconfig"; sourceTree = "<group>"; };
-		2BDC77B82A426CF86927EA62 /* TXVideoPlayer.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = TXVideoPlayer.podspec; path = ../TXVideoPlayer.podspec; sourceTree = "<group>"; };
+		2BDC77B82A426CF86927EA62 /* TXVideoPlayer.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = TXVideoPlayer.podspec; path = ../TXVideoPlayer.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		3F5FEED117E192ADE7A02054 /* Pods_TXVideoPlayer_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TXVideoPlayer_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		552EE490262D1A850003C8B3 /* pause@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pause@3x.png"; sourceTree = "<group>"; };
 		552EE491262D1A850003C8B3 /* copywright_bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "copywright_bg@3x.png"; sourceTree = "<group>"; };
