@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'TXVideoPlayer'
-  s.version          = '0.1.7'
+  s.version          = '0.1.8'
   s.summary          = 'TXVideoPlayer.'
 
 # This description is used to generate tags and improve search results.
@@ -30,7 +30,7 @@ Pod::Spec.new do |s|
   s.static_framework = true
   s.requires_arc = true
   s.source_files = 'TXVideoPlayer/Classes/**/*'
-  s.pod_target_xcconfig = { 'VALID_ARCHS' => 'x86_64 armv7 arm64' }
+  s.pod_target_xcconfig = { 'VALID_ARCHS' => 'armv7 arm64' }
   s.resource_bundles = {
      'TXVideoPlayer' => ['TXVideoPlayer/Assets/**/*']
   }
