@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="whP-gf-Uak">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19115.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="whP-gf-Uak">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19107.4"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -20,7 +18,31 @@
                     <view key="view" contentMode="scaleToFill" id="TpU-gO-2f1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="slb-YN-v4R">
+                                <rect key="frame" x="146" y="514.5" width="83.5" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" title="Prepare"/>
+                                <connections>
+                                    <action selector="prepareAction:" destination="whP-gf-Uak" eventType="touchUpInside" id="mm6-cN-MGK"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K59-D3-oZ0">
+                                <rect key="frame" x="159.5" y="557" width="56" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" title="Play"/>
+                                <connections>
+                                    <action selector="playAction:" destination="whP-gf-Uak" eventType="touchUpInside" id="3eu-EZ-hVA"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Mvr-aV-6Um" firstAttribute="top" secondItem="K59-D3-oZ0" secondAttribute="bottom" constant="75" id="Im2-9a-qbL"/>
+                            <constraint firstItem="K59-D3-oZ0" firstAttribute="firstBaseline" secondItem="slb-YN-v4R" secondAttribute="baseline" constant="42.5" symbolType="layoutAnchor" id="NDD-pH-U4p"/>
+                            <constraint firstItem="K59-D3-oZ0" firstAttribute="centerX" secondItem="TpU-gO-2f1" secondAttribute="centerX" id="UXy-0U-dsJ"/>
+                            <constraint firstItem="slb-YN-v4R" firstAttribute="centerX" secondItem="TpU-gO-2f1" secondAttribute="centerX" id="s6i-3z-GKE"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tc2-Qw-aMS" userLabel="First Responder" sceneMemberID="firstResponder"/>

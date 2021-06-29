@@ -19,11 +19,11 @@ PODS:
     - SDWebImage/Core (= 5.11.0)
   - SDWebImage/Core (5.11.0)
   - TXLiteAVSDK_Player (8.8.10257)
-  - TXVideoPlayer (0.1.6):
+  - TXVideoPlayer (0.1.8):
     - AFNetworking
     - Masonry
     - SDWebImage
-    - TXLiteAVSDK_Player
+    - TXLiteAVSDK_Player (= 8.8.10257)
 
 DEPENDENCIES:
   - TXVideoPlayer (from `../`)
@@ -44,7 +44,7 @@ SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   SDWebImage: 7acbb57630ac7db4a495547fb73916ff3e432f6b
   TXLiteAVSDK_Player: dabdf2e9c4ff4c6e60c148b3a7facf8a52631226
-  TXVideoPlayer: b4042ba3f9982628ffd782ea7f4bee6ed9cad754
+  TXVideoPlayer: c15d9e359ef5900a642d03f0dda9e30d19de2e4b
 
 PODFILE CHECKSUM: 09ff6a4c57847a22b0fc01bf2248c12d48be0b6b
 
