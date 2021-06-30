@@ -32,7 +32,7 @@
     SuperPlayerView *player = view;
 //    player.fatherView = self.view;
 //    player.autoPlay = YES;
-    
+    self.player.autoPlay = false;
     self.player = player;
     
 }
@@ -42,6 +42,7 @@
     SuperPlayerModel *model = [[SuperPlayerModel alloc] init];
     model.videoURL = @"http://200024424.vod.myqcloud.com/200024424_709ae516bdf811e6ad39991f76a4df69.f20.mp4";
     [self.player playWithModel:model];
+    [self.player resume];
 }
 - (IBAction)playAction:(id)sender {
     [self.player resume];
