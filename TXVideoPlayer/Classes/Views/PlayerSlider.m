@@ -70,7 +70,7 @@
     }];
     _progressView.layer.masksToBounds = YES;
     _progressView.layer.cornerRadius  = 1;
-    self.progressView.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.8];
+    self.progressView.backgroundColor = [UIColor.whiteColor colorWithAlphaComponent:0.45];
     [self sendSubviewToBack:self.progressView];
 }
 
