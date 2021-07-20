@@ -52,7 +52,11 @@ static UISlider * _volumeSlider;
 #pragma clang diagnostic ignored"-Wdeprecated-declarations"
 
 
+@interface SuperPlayerView()
 
+@property (strong, nonatomic) UIPanGestureRecognizer *panGesture;
+
+@end
 
 @implementation SuperPlayerView {
     UIView *_fullScreenBlackView;
@@ -527,6 +531,7 @@ static UISlider * _volumeSlider;
     [panRecognizer setDelaysTouchesEnded:YES];
     [panRecognizer setCancelsTouchesInView:YES];
     [self addGestureRecognizer:panRecognizer];
+    self.panGesture = panRecognizer;
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -946,6 +951,9 @@ static UISlider * _volumeSlider;
     }
 
     if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
+        if (gestureRecognizer != self.panGesture) {
+            return  YES;
+        }
         if (!self.isLoaded) { return NO; }
         if (self.isLockScreen) { return NO; }
         if (SuperPlayerWindowShared.isShowing) { return NO; }
@@ -1767,7 +1775,7 @@ static UISlider * _volumeSlider;
         _middleBlackBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         [_middleBlackBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _middleBlackBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
-        _middleBlackBtn.backgroundColor = RGBA(0, 0, 0, 0.7);
+        _middleBlackBtn.backgroundColor = [UIColor clearColor];
         [_middleBlackBtn addTarget:self action:@selector(middleBlackBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_middleBlackBtn];
         [_middleBlackBtn mas_makeConstraints:^(MASConstraintMaker *make) {
