@@ -88,21 +88,23 @@ static UISlider * _volumeSlider;
  *  初始化player
  */
 - (void)initializeThePlayer {
+    _replaceSystemVolumeView = YES;
     LOG_ME;
     self.netWatcher = [[NetWatcher alloc] init];
     
     CGRect frame = CGRectMake(0, -100, 10, 0);
     self.volumeView = [[MPVolumeView alloc] initWithFrame:frame];
     [self.volumeView sizeToFit];
+    
+    _fullScreenBlackView = [UIView new];
+    _fullScreenBlackView.backgroundColor = [UIColor blackColor];
+    
     for (UIWindow *window in [[UIApplication sharedApplication] windows]) {
         if (!window.isHidden) {
             [window addSubview:self.volumeView];
             break;
         }
     }
-    
-    _fullScreenBlackView = [UIView new];
-    _fullScreenBlackView.backgroundColor = [UIColor blackColor];
     
     // 单例slider
     _volumeSlider = nil;
@@ -121,6 +123,22 @@ static UISlider * _volumeSlider;
     
     self.autoPlay = YES;
     self.allowAutoObserveOrientationChange = YES;
+}
+
+- (void)setReplaceSystemVolumeView:(BOOL)replaceSystemVolumeView {
+    if (_replaceSystemVolumeView != replaceSystemVolumeView) {
+        _replaceSystemVolumeView = replaceSystemVolumeView;
+        if (replaceSystemVolumeView) {
+            for (UIWindow *window in [[UIApplication sharedApplication] windows]) {
+                if (!window.isHidden) {
+                    [window addSubview:self.volumeView];
+                    break;
+                }
+            }
+        } else {
+            [self.volumeView removeFromSuperview];
+        }
+    }
 }
 
 - (void)dealloc {

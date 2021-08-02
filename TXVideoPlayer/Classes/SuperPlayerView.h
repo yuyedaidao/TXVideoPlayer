@@ -86,11 +86,13 @@ typedef NS_ENUM(NSInteger, SuperPlayerLayoutStyle) {
 /// 起始播放时间，用于从上次位置开播
 @property CGFloat startTime;
 /// 播放的视频Model
-@property (readonly) SuperPlayerModel       *playerModel;
+@property (readonly) SuperPlayerModel *playerModel;
 /// 播放器配置
 @property SuperPlayerViewConfig *playerConfig;
 /// 循环播放
 @property (nonatomic) BOOL loop;
+/// 是否替换系统音量
+@property (nonatomic) BOOL replaceSystemVolumeView;
 /**
  * 视频雪碧图
  */
