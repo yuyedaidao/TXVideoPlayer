@@ -54,12 +54,9 @@ static UISlider * _volumeSlider;
 
 @interface SuperPlayerView()
 
-@property (strong, nonatomic) UIPanGestureRecognizer *panGesture;
-
 @end
 
 @implementation SuperPlayerView {
-    UIView *_fullScreenBlackView;
     SuperPlayerControlView *_controlView;
     NSURLSessionTask *_currentLoadingTask;
 }
@@ -958,33 +955,8 @@ static UISlider * _volumeSlider;
 }
 
 #pragma mark - UIPanGestureRecognizer手势方法
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
-{
-    if ([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]) {
-        if (((UITapGestureRecognizer*)gestureRecognizer).numberOfTapsRequired == 2) {
-            if (self.isLockScreen == YES)
-                return NO;
-        }
-        return YES;
-    }
-
-    if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
-        if (gestureRecognizer != self.panGesture) {
-            return  YES;
-        }
-        if (!self.isLoaded) { return NO; }
-        if (self.isLockScreen) { return NO; }
-        if (SuperPlayerWindowShared.isShowing) { return NO; }
-        
-        if (self.disableGesture) {
-            if (!self.isFullScreen) {
-                return NO;
-            }
-        }
-        return YES;
-    }
-    
-    return NO;
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    return [self.gestureDelegate superPlayerGestureRecognizerShouldBegin: gestureRecognizer];
 }
 /**
  *  pan手势事件

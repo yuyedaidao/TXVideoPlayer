@@ -4,6 +4,10 @@
 #import "SuperPlayerViewConfig.h"
 #import "SPVideoFrameDescription.h"
 
+@protocol SuperPlayerGestureDelegate <NSObject>
+- (BOOL)superPlayerGestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer;
+@end
+
 @class SuperPlayerControlView;
 @class SuperPlayerView;
 @class TXImageSprite;
@@ -61,8 +65,9 @@ typedef NS_ENUM(NSInteger, SuperPlayerLayoutStyle) {
 @property (readonly) BOOL isLive;
 /// 超级播放器控制层
 @property (nonatomic) SuperPlayerControlView *controlView;
-/// 是否允许竖屏手势
+/// 是否允许竖屏手势 (现在把代理放出来应该可以不用这个了)
 @property (nonatomic) BOOL disableGesture;
+@property (nonatomic, assign) id<SuperPlayerGestureDelegate> gestureDelegate;
 /// 是否在手势中
 @property (readonly)  BOOL isDragging;
 /// 是否加载成功
@@ -137,5 +142,9 @@ typedef NS_ENUM(NSInteger, SuperPlayerLayoutStyle) {
 
 /// 允许自动监测屏幕旋转
 @property (assign, nonatomic) BOOL allowAutoObserveOrientationChange;
+
+
+@property (strong, nonatomic) UIPanGestureRecognizer *panGesture;
+@property (strong, nonatomic) UIView *fullScreenBlackView;
 
 @end
