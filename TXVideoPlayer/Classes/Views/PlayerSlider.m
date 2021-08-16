@@ -60,7 +60,7 @@
     self.pointArray = [NSMutableArray new];
     
     self.maximumValue = 1;
-    self.maximumTrackTintColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.5];
+    self.maximumTrackTintColor = [[UIColor whiteColor] colorWithAlphaComponent:0.3];
     
     [_progressView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self);
