@@ -119,7 +119,7 @@ static UISlider * _volumeSlider;
     [self createGesture];
     
     self.autoPlay = YES;
-    self.allowAutoObserveOrientationChange = YES;
+    self.allowAutoObserveOrientationChange = NO;
 }
 
 - (void)setReplaceSystemVolumeView:(BOOL)replaceSystemVolumeView {
