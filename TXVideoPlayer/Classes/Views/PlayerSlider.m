@@ -63,8 +63,8 @@
     self.maximumTrackTintColor = [[UIColor whiteColor] colorWithAlphaComponent:0.3];
     
     [_progressView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self);
-        make.right.equalTo(self);
+        make.leading.equalTo(self).offset(2); // 虽然不知道这是在搞什么鬼，但是这样才能对齐
+        make.trailing.equalTo(self).offset(-1);
         make.centerY.equalTo(self).mas_offset(0.5);
         make.height.mas_equalTo(2);
     }];
