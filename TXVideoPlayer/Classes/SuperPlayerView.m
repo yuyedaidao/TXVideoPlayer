@@ -1609,6 +1609,9 @@ static UISlider * _volumeSlider;
         } else if (EvtID == PLAY_EVT_CHANGE_RESOLUTION) {
             if (player.height != 0) {
                 self.videoRatio = (GLfloat)player.width / player.height;
+                if ([self.delegate respondsToSelector:@selector(superPlayer:videoRatioDidChange:)]) {
+                    [self.delegate superPlayer:self videoRatioDidChange:self.videoRatio];
+                }
             }
         }
      });

@@ -35,6 +35,7 @@ typedef NS_ENUM(NSInteger, SuperPlayerState) {
 - (void)superPlayerError:(SuperPlayerView *)player errCode:(int)code errMessage:(NSString *)why;
 // 播放状态通知
 - (void)superPlayerDidChange:(SuperPlayerView *)player state:(SuperPlayerState)state;
+- (void)superPlayer:(SuperPlayerView *)player videoRatioDidChange:(CGFloat)ratio;
 @end
 
 
