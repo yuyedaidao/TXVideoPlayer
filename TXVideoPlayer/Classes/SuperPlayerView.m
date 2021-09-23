@@ -53,7 +53,7 @@ static UISlider * _volumeSlider;
 
 
 @interface SuperPlayerView()
-
+@property (assign, nonatomic) BOOL isFirstFrameLoaded; //FIRST_I_FRAME;
 @end
 
 @implementation SuperPlayerView {
@@ -318,7 +318,7 @@ static UISlider * _volumeSlider;
     self.livePlayer = nil;
     
     [self reportPlay];
-    
+    _isFirstFrameLoaded = NO;
     self.state = StateStopped;
 }
 
@@ -1182,7 +1182,7 @@ static UISlider * _volumeSlider;
     return YES;
 }
 
-#pragma mark - Setter 
+#pragma mark - Setter
 
 
 /**
@@ -1209,7 +1209,7 @@ static UISlider * _volumeSlider;
                                                      name:@"AVSystemController_SystemVolumeDidChangeNotification"
                                                    object:nil];
         
-        if (self.coverImageView.alpha == 1) {
+        if (self.coverImageView.alpha == 1 && self.isFirstFrameLoaded) {
             [UIView animateWithDuration:0.2 animations:^{
                 self.coverImageView.alpha = 0;
             }];
@@ -1517,6 +1517,9 @@ static UISlider * _volumeSlider;
         }
 
         if (EvtID == PLAY_EVT_PLAY_BEGIN || EvtID == PLAY_EVT_RCV_FIRST_I_FRAME) {
+            if (EvtID == PLAY_EVT_RCV_FIRST_I_FRAME) {
+                self.isFirstFrameLoaded = YES;
+            }
             [self setNeedsLayout];
             [self layoutIfNeeded];
             self.isLoaded = YES;
