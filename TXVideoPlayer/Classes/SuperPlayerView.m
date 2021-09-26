@@ -205,6 +205,7 @@ static UISlider * _volumeSlider;
     [self reportPlay];
     self.reportTime = [NSDate date];
     [self _removeOldPlayer];
+    self.isFirstFrameLoaded = NO;
     [self _playWithModel:playerModel];
     self.coverImageView.alpha = 1;
     self.repeatBtn.hidden = YES;
@@ -1197,10 +1198,11 @@ static UISlider * _volumeSlider;
     if (state == StateBuffering) {
         [self.spinner startAnimating];
     } else {
-        [self.spinner stopAnimating];
+        if (self.isFirstFrameLoaded) {
+            [self.spinner stopAnimating];
+        }
     }
     if (state == StatePlaying) {
-        
         [[NSNotificationCenter defaultCenter] removeObserver:self
                                                         name:@"AVSystemController_SystemVolumeDidChangeNotification"
                                                       object:nil];
@@ -1208,7 +1210,6 @@ static UISlider * _volumeSlider;
                                                  selector:@selector(volumeChanged:)
                                                      name:@"AVSystemController_SystemVolumeDidChangeNotification"
                                                    object:nil];
-        
         if (self.coverImageView.alpha == 1 && self.isFirstFrameLoaded) {
             [UIView animateWithDuration:0.2 animations:^{
                 self.coverImageView.alpha = 0;
@@ -1217,13 +1218,10 @@ static UISlider * _volumeSlider;
     } else if (state == StateFailed) {
         
     } else if (state == StateStopped) {
-        
         [[NSNotificationCenter defaultCenter] removeObserver:self
                                                         name:@"AVSystemController_SystemVolumeDidChangeNotification"
                                                       object:nil];
-        
         self.coverImageView.alpha = 1;
-        
     } else if (state == StatePause) {
 
     }
