@@ -1209,6 +1209,10 @@ static UISlider * _volumeSlider;
     } else {
         if (self.isFirstFrameLoaded) {
             [self.spinner stopAnimating];
+        } else {
+            if (state == StateFailed || state == StateStopped) {
+                [self.spinner stopAnimating];
+            }
         }
     }
     if (state == StatePlaying) {
