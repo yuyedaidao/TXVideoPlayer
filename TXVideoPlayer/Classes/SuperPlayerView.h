@@ -64,6 +64,9 @@ typedef NS_ENUM(NSInteger, SuperPlayerLayoutStyle) {
 @property (nonatomic, assign) BOOL isLockScreen;
 /// 是否是直播流
 @property (readonly) BOOL isLive;
+
+/// 强制以直播播放器来播放 如果设置为YES，则isLive为YES,如果设置为NO,则isLive根据url判断 注意，需要在playWithModel之前设置
+@property (assign, nonatomic) BOOL forceBeLive;
 /// 超级播放器控制层
 @property (nonatomic) SuperPlayerControlView *controlView;
 /// 是否允许竖屏手势 (现在把代理放出来应该可以不用这个了)
@@ -144,8 +147,8 @@ typedef NS_ENUM(NSInteger, SuperPlayerLayoutStyle) {
 /// 允许自动监测屏幕旋转
 @property (assign, nonatomic) BOOL allowAutoObserveOrientationChange;
 
-
 @property (strong, nonatomic) UIPanGestureRecognizer *panGesture;
 @property (strong, nonatomic) UIView *fullScreenBlackView;
-
+/// 是否允许拖拽进度
+@property (assign, nonatomic, getter=isSliderEnable) BOOL sliderEnable;
 @end

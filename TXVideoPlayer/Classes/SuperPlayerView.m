@@ -111,7 +111,8 @@ static UISlider * _volumeSlider;
             break;
         }
     }
-    
+    // 默认允许拖动进度
+    _sliderEnable = YES;
     _playerConfig = [[SuperPlayerViewConfig alloc] init];
     // 添加通知
     [self addNotifications];
@@ -983,9 +984,11 @@ static UISlider * _volumeSlider;
             CGFloat x = fabs(veloctyPoint.x);
             CGFloat y = fabs(veloctyPoint.y);
             if (x > y) { // 水平移动
-                // 取消隐藏
-                self.panDirection = PanDirectionHorizontalMoved;
-                self.sumTime      = [self playCurrentTime];
+                if (self.isSliderEnable) {
+                    // 取消隐藏
+                    self.panDirection = PanDirectionHorizontalMoved;
+                    self.sumTime      = [self playCurrentTime];
+                }
             }
             else if (x < y){ // 垂直移动
                 self.panDirection = PanDirectionVerticalMoved;
@@ -1003,7 +1006,9 @@ static UISlider * _volumeSlider;
         case UIGestureRecognizerStateChanged:{ // 正在移动
             switch (self.panDirection) {
                 case PanDirectionHorizontalMoved:{
-                    [self horizontalMoved:veloctyPoint.x]; // 水平移动的方法只要x方向的值
+                    if (self.isSliderEnable) {
+                        [self horizontalMoved:veloctyPoint.x]; // 水平移动的方法只要x方向的值
+                    }
                     break;
                 }
                 case PanDirectionVerticalMoved:{
@@ -1021,10 +1026,12 @@ static UISlider * _volumeSlider;
             // 比如水平移动结束时，要快进到指定位置，如果这里没有判断，当我们调节音量完之后，会出现屏幕跳动的bug
             switch (self.panDirection) {
                 case PanDirectionHorizontalMoved:{
-                    self.isPauseByUser = NO;
-                    [self seekToTime:self.sumTime];
-                    // 把sumTime滞空，不然会越加越多
-                    self.sumTime = 0;
+                    if (self.isSliderEnable) {
+                        self.isPauseByUser = NO;
+                        [self seekToTime:self.sumTime];
+                        // 把sumTime滞空，不然会越加越多
+                        self.sumTime = 0;
+                    }
                     break;
                 }
                 case PanDirectionVerticalMoved:{
@@ -1073,13 +1080,15 @@ static UISlider * _volumeSlider;
  */
 - (void)horizontalMoved:(CGFloat)value {
     // 每次滑动需要叠加时间
-    CGFloat totalMovieDuration = [self playDuration];
-    self.sumTime += value / 10000 * totalMovieDuration;
-    
-    if (self.sumTime > totalMovieDuration) { self.sumTime = totalMovieDuration;}
-    if (self.sumTime < 0) { self.sumTime = 0; }
-    
-    [self fastViewProgressAvaliable:self.sumTime];
+    if (self.isSliderEnable) {
+        CGFloat totalMovieDuration = [self playDuration];
+        self.sumTime += value / 10000 * totalMovieDuration;
+        
+        if (self.sumTime > totalMovieDuration) { self.sumTime = totalMovieDuration;}
+        if (self.sumTime < 0) { self.sumTime = 0; }
+        
+        [self fastViewProgressAvaliable:self.sumTime];
+    }
 }
 
 - (void)volumeChanged:(NSNotification *)notification
@@ -1733,6 +1742,9 @@ static UISlider * _volumeSlider;
 }
 
 - (int)livePlayerType {
+    if (_forceBeLive) {
+        return 1000000; // 只要返回一个不小0的数值即可判断为直播
+    }
     int playType = -1;
     NSString *videoURL = self.playerModel.playingDefinitionUrl;
     NSURLComponents *components = [NSURLComponents componentsWithString:videoURL];
