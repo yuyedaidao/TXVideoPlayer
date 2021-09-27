@@ -1746,9 +1746,6 @@ static UISlider * _volumeSlider;
 }
 
 - (int)livePlayerType {
-    if (_forceBeLive) {
-        return 1000000; // 只要返回一个不小0的数值即可判断为直播
-    }
     int playType = -1;
     NSString *videoURL = self.playerModel.playingDefinitionUrl;
     NSURLComponents *components = [NSURLComponents componentsWithString:videoURL];
