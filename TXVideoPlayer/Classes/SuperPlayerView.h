@@ -63,9 +63,9 @@ typedef NS_ENUM(NSInteger, SuperPlayerLayoutStyle) {
 /// 是否锁定旋转
 @property (nonatomic, assign) BOOL isLockScreen;
 /// 是否是直播流 // 这是原始的属性，但是播放m3u8流的时候及时是直播流也不能用直播播放器播放，必须用点播播放器放，所以这个属性会误导人的，废弃
-@property (readonly) BOOL isLive DEPRECATED_MSG_ATTRIBUTE("这是原始的属性，但是播放m3u8流的时候及时是直播流也不能用直播播放器播放，必须用点播播放器放，所以这个属性会误导人的，废弃,可以用isLiveStream代替");
-/// 是否是直播流 基于现有的逻辑这个属性应该也用不到了，直接在子类里控制能否拖拽吧
-@property (assign, nonatomic) BOOL isLiveStream;
+@property (readonly) BOOL isLive DEPRECATED_MSG_ATTRIBUTE("这是原始的属性，但是播放m3u8流的时候及时是直播流也不能用直播播放器播放，必须用点播播放器放，所以这个属性会误导人的，废弃");
+///// 是否是直播流 基于现有的逻辑这个属性应该也用不到了，直接在子类里控制能否拖拽吧
+//@property (assign, nonatomic) BOOL isLiveStream;
 /// 超级播放器控制层
 @property (nonatomic) SuperPlayerControlView *controlView;
 /// 是否允许竖屏手势 (现在把代理放出来应该可以不用这个了)
