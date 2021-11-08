@@ -41,8 +41,6 @@
 #import "TXVodPlayListener.h"
 #import "TXVodPlayer.h"
 
-static UISlider * _volumeSlider;
-
 #define CellPlayerFatherViewTag  200
 #define SUPPORT_PARAM_MAJOR_VERSION (8)
 #define SUPPORT_PARAM_MINOR_VERSION (2)
@@ -50,6 +48,50 @@ static UISlider * _volumeSlider;
 //忽略编译器的警告
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored"-Wdeprecated-declarations"
+
+@interface VolumeViewManager: NSObject {
+    UISlider *_slider;
+}
+@property (strong) MPVolumeView *volumeView;
+@property (readonly) UISlider *volumeSlider;
+@end
+
+@implementation VolumeViewManager
++ (instancetype)shared {
+    static VolumeViewManager *instance;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [[VolumeViewManager alloc] init];
+    });
+    return instance;
+}
+
+- (instancetype)init {
+    self = [super init];
+    CGRect frame = CGRectMake(0, -100, 10, 0);
+    self.volumeView = [[MPVolumeView alloc] initWithFrame:frame];
+    [self.volumeView sizeToFit];
+    for (UIView *view in [self.volumeView subviews]){
+        if ([view.class.description isEqualToString:@"MPVolumeSlider"]){
+            _slider = (UISlider *)view;
+            break;
+        }
+    }
+    return self;
+}
+
+- (UISlider *)volumeSlider {
+    if(_volumeView.superview == nil) {
+        for (UIWindow *window in [[UIApplication sharedApplication] windows]) {
+            if (!window.isHidden) {
+                [window addSubview:self.volumeView];
+                break;
+            }
+        }
+    }
+    return _slider;
+}
+@end
 
 
 @interface SuperPlayerView()
@@ -89,28 +131,9 @@ static UISlider * _volumeSlider;
     LOG_ME;
     self.netWatcher = [[NetWatcher alloc] init];
     
-    CGRect frame = CGRectMake(0, -100, 10, 0);
-    self.volumeView = [[MPVolumeView alloc] initWithFrame:frame];
-    [self.volumeView sizeToFit];
-    
     _fullScreenBlackView = [UIView new];
     _fullScreenBlackView.backgroundColor = [UIColor blackColor];
-    
-    for (UIWindow *window in [[UIApplication sharedApplication] windows]) {
-        if (!window.isHidden) {
-            [window addSubview:self.volumeView];
-            break;
-        }
-    }
-    
-    // 单例slider
-    _volumeSlider = nil;
-    for (UIView *view in [self.volumeView subviews]){
-        if ([view.class.description isEqualToString:@"MPVolumeSlider"]){
-            _volumeSlider = (UISlider *)view;
-            break;
-        }
-    }
+  
     // 默认允许拖动进度
     _sliderEnable = YES;
     _playerConfig = [[SuperPlayerViewConfig alloc] init];
@@ -123,21 +146,6 @@ static UISlider * _volumeSlider;
     self.allowAutoObserveOrientationChange = NO;
 }
 
-- (void)setReplaceSystemVolumeView:(BOOL)replaceSystemVolumeView {
-    if (_replaceSystemVolumeView != replaceSystemVolumeView) {
-        _replaceSystemVolumeView = replaceSystemVolumeView;
-        if (replaceSystemVolumeView) {
-            for (UIWindow *window in [[UIApplication sharedApplication] windows]) {
-                if (!window.isHidden) {
-                    [window addSubview:self.volumeView];
-                    break;
-                }
-            }
-        } else {
-            [self.volumeView removeFromSuperview];
-        }
-    }
-}
 
 - (void)dealloc {
     LOG_ME;
@@ -147,7 +155,6 @@ static UISlider * _volumeSlider;
     
     [self reportPlay];
     [self.netWatcher stopWatch];
-    [self.volumeView removeFromSuperview];
 }
 
 - (void)setAllowShowFastView:(BOOL)allowShowFastView {
@@ -1249,7 +1256,7 @@ static UISlider * _volumeSlider;
 }
 
 + (UISlider *)volumeViewSlider {
-    return _volumeSlider;
+    return [VolumeViewManager shared].volumeSlider;
 }
 #pragma mark - SuperPlayerControlViewDelegate
 

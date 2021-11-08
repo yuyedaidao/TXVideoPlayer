@@ -100,7 +100,8 @@ typedef NS_ENUM(NSInteger, SuperPlayerLayoutStyle) {
 /// 循环播放
 @property (nonatomic) BOOL loop;
 /// 是否替换系统音量
-@property (nonatomic) BOOL replaceSystemVolumeView;
+@property (nonatomic) BOOL replaceSystemVolumeView DEPRECATED_MSG_ATTRIBUTE("主动传入VolumeView");
+@property (nonatomic, weak) UISlider *volumeSlider;
 /**
  * 视频雪碧图
  */
