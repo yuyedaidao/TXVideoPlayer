@@ -3,6 +3,7 @@
 #import "SuperPlayerModel.h"
 #import "SuperPlayerViewConfig.h"
 #import "SPVideoFrameDescription.h"
+#import "MMMaterialDesignSpinner.h"
 
 @protocol SuperPlayerGestureDelegate <NSObject>
 - (BOOL)superPlayerGestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer;
@@ -151,4 +152,5 @@ typedef NS_ENUM(NSInteger, SuperPlayerLayoutStyle) {
 @property (strong, nonatomic) UIView *fullScreenBlackView;
 /// 是否允许拖拽进度
 @property (assign, nonatomic, getter=isSliderEnable) BOOL sliderEnable;
+- (MMMaterialDesignSpinner *)spinner;
 @end

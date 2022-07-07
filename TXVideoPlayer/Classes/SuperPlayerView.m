@@ -96,6 +96,7 @@
 
 @interface SuperPlayerView()
 @property (assign, nonatomic) BOOL isFirstFrameLoaded; //FIRST_I_FRAME;
+@property (nonatomic, copy) dispatch_block_t delayResumeBlock;
 @end
 
 @implementation SuperPlayerView {
@@ -149,6 +150,9 @@
 
 - (void)dealloc {
     LOG_ME;
+    if (self.delayResumeBlock) {
+        dispatch_block_cancel(self.delayResumeBlock);
+    }
     // 移除通知
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
@@ -173,9 +177,9 @@
  */
 - (void)addNotifications {
     // app退到后台
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground:) name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
     // app进入前台
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterPlayground:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterPlayground:) name:UIApplicationWillEnterForegroundNotification object:nil];
     
     // 监测设备方向
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
@@ -805,6 +809,9 @@
         return;
     }
     if (!self.isPauseByUser && (self.state != StateStopped && self.state != StateFailed)) {
+        if (self.delayResumeBlock) {
+            dispatch_block_cancel(self.delayResumeBlock);
+        }
         [_vodPlayer pause];
         self.state = StatePause;
     }
@@ -819,8 +826,24 @@
         return;
     }
     if (!self.isPauseByUser && (self.state != StateStopped && self.state != StateFailed)) {
-        self.state = StatePlaying;
-        [_vodPlayer resume];
+        __weak __typeof(self)weakSelf = self;
+        [_controlView setPlayState:NO];
+        self.delayResumeBlock = dispatch_block_create(0, ^{
+            __strong __typeof(weakSelf)self = weakSelf;
+            UIResponder *responder = self;
+            while (responder = responder.nextResponder) {
+                if ([responder isKindOfClass:UIViewController.class]) {
+                    UIViewController *vc = (UIViewController *)responder;
+                    if (vc.navigationController.visibleViewController == vc) {
+                        self.state = StatePlaying;
+                        [self.vodPlayer resume];
+                        [self.controlView setPlayState:YES];
+                        return;
+                    }
+                }
+            }
+        });
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1500 * NSEC_PER_MSEC)), dispatch_get_main_queue(), _delayResumeBlock);
     }
 }
 
@@ -1379,6 +1402,11 @@
     }
 }
 
+- (void)setDisableGesture:(BOOL)disableGesture {
+    for(UIGestureRecognizer *gesture in self.gestureRecognizers) {
+        gesture.enabled = !disableGesture;
+    }
+}
 -(void)openPhotos {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"photos-redirect://"]];
 }
