@@ -153,4 +153,6 @@ typedef NS_ENUM(NSInteger, SuperPlayerLayoutStyle) {
 /// 是否允许拖拽进度
 @property (assign, nonatomic, getter=isSliderEnable) BOOL sliderEnable;
 - (MMMaterialDesignSpinner *)spinner;
+/// 自动控制空闲时间
+@property (assign, nonatomic) BOOL autoEnableIdleTimer;
 @end

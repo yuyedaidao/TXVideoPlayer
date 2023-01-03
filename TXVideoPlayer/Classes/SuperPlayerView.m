@@ -333,6 +333,9 @@
     [self reportPlay];
     _isFirstFrameLoaded = NO;
     self.state = StateStopped;
+    if (_autoEnableIdleTimer) {
+        UIApplication.sharedApplication.idleTimerDisabled = NO;
+    }
 }
 
 /**
@@ -1202,6 +1205,21 @@
     }
     if ([self.delegate respondsToSelector:@selector(superPlayerDidChange:state:)]) {
         [self.delegate superPlayerDidChange:self state:state];
+    }
+    if (self.autoEnableIdleTimer) {
+        switch (state) {
+            case StatePlaying:
+            case StateBuffering:
+                UIApplication.sharedApplication.idleTimerDisabled = YES;
+                break;
+            case StateFailed:
+            case StateStopped:
+            case StatePause:
+                UIApplication.sharedApplication.idleTimerDisabled = NO;
+                break;
+            default:
+                break;
+        }
     }
 }
 
