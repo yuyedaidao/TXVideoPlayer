@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'TXVideoPlayer'
-  s.version          = '1.0.4'
+  s.version          = '2.0.0'
   s.summary          = 'TXVideoPlayer.'
 
 # This description is used to generate tags and improve search results.
@@ -38,7 +38,7 @@ Pod::Spec.new do |s|
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   # s.dependency 'AFNetworking', '~> 2.3'
-  s.dependency 'TXLiteAVSDK_Player', '~> 9'
+  s.dependency 'TXLiteAVSDK_Player', '~> 10'
   s.dependency 'AFNetworking', '~> 4.0'
   s.dependency 'SDWebImage'
   s.dependency 'Masonry'
