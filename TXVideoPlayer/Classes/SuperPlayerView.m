@@ -1644,6 +1644,9 @@
         }
 #endif
         if (EvtID == PLAY_EVT_PLAY_BEGIN || EvtID == PLAY_EVT_RCV_FIRST_I_FRAME) {
+            if (EvtID == PLAY_EVT_RCV_FIRST_I_FRAME) {
+                self.isFirstFrameLoaded = YES;
+            }
             if (!self.isLoaded) {
                 [self setNeedsLayout];
                 [self layoutIfNeeded];
@@ -1656,10 +1659,11 @@
                 if ([self.delegate respondsToSelector:@selector(superPlayerDidStart:)]) {
                     [self.delegate superPlayerDidStart:self];
                 }
+               
+            } else {
+                self.state = StatePlaying;
             }
             
-            if (self.state == StateBuffering)
-                self.state = StatePlaying;
             [self.netWatcher loadingEndEvent];
         } else if (EvtID == PLAY_EVT_PLAY_END) {
             [self moviePlayDidEnd];
