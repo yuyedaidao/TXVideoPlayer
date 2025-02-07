@@ -155,4 +155,6 @@ typedef NS_ENUM(NSInteger, SuperPlayerLayoutStyle) {
 - (MMMaterialDesignSpinner *)spinner;
 /// 自动控制空闲时间
 @property (assign, nonatomic) BOOL autoEnableIdleTimer;
+/// 播放完成允许识别单击事件
+@property (assign, nonatomic) BOOL allowRecognizeSingleTapWhenPlayEnd;
 @end
