@@ -727,7 +727,7 @@
 - (void)singleTapAction:(UIGestureRecognizer *)gesture {
     if (gesture.state == UIGestureRecognizerStateRecognized) {
         
-        if (self.playDidEnd) {
+        if (self.playDidEnd && !_allowRecognizeSingleTapWhenPlayEnd) {
             return;
         }
         if (SuperPlayerWindowShared.isShowing)
