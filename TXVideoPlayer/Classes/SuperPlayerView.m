@@ -1078,6 +1078,7 @@
         [_fastView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.mas_equalTo(UIEdgeInsetsZero);
         }];
+        _fastView.hidden = !_allowShowFastView;
     }
     return _fastView;
 }
