@@ -786,6 +786,18 @@
         [self.controlView fadeOut:0.2];
     }
     [self fastViewUnavaliable];
+    if (self.playEndHandler) {
+        @m_weakify(self);
+        self.playEndHandler(^{
+            @m_strongify(self);
+            [self playEndAfter];
+        });
+    } else {
+        [self playEndAfter];
+    }
+}
+
+- (void)playEndAfter {
     [self.netWatcher stopWatch];
     if (self.allowShowRepeatView) {
         self.repeatBtn.hidden = NO;
