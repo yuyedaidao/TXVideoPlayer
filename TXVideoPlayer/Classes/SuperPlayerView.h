@@ -157,4 +157,6 @@ typedef NS_ENUM(NSInteger, SuperPlayerLayoutStyle) {
 @property (assign, nonatomic) BOOL autoEnableIdleTimer;
 /// 播放完成允许识别单击事件
 @property (assign, nonatomic) BOOL allowRecognizeSingleTapWhenPlayEnd;
+/// 播放完成后的回调 这里主要是为了辅助实现后贴广告用的
+@property (copy, nonatomic) PlayEndHandler playEndHandler;
 @end
