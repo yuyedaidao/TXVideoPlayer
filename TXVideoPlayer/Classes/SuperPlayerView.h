@@ -5,6 +5,9 @@
 #import "SPVideoFrameDescription.h"
 #import "MMMaterialDesignSpinner.h"
 
+typedef void(^PlayEndAfter)(void);
+typedef void(^PlayEndHandler)(PlayEndAfter);
+
 @protocol SuperPlayerGestureDelegate <NSObject>
 - (BOOL)superPlayerGestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer;
 @end
